@@ -4,7 +4,9 @@ from flask import Flask, render_template, Response
 import cv2
 
 
-cam = cv2.VideoCapture(1)
+cam = cv2.VideoCapture(0)
+cam.set(3, 320)
+cam.set(4, 240)
 
 app = Flask(__name__)
 
@@ -31,8 +33,7 @@ def gen(camera):
 @app.route('/video_feed')
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
-    return Response(gen(cam),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(gen(cam), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
-    app.run(host="192.168.0.7", threaded=True)
+    app.run(host="localhost", port = 8000, threaded=True)

@@ -13,7 +13,7 @@ app = Flask(__name__)
 def get_frame(camera):
 	frame = camera.read()[1]
 	jpeg = cv2.imencode('.jpg', frame)[1]
-	frame = jpeg.tobytes()
+	frame = jpeg.tostring()
 	return frame
 
 @app.route('/')
